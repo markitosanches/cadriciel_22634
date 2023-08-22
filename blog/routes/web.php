@@ -28,4 +28,7 @@ Route::get('/', function () {
 
 Route::get('/test', [BlogController::class, 'index']);
 
+Route::get('/home', [BlogController::class, 'index']);
+Route::get('/article', [BlogController::class, 'article']);
+Route::get('/about', [BlogController::class, 'about']);
 
