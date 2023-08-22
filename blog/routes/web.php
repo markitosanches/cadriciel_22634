@@ -26,9 +26,10 @@ Route::get('/', function () {
 
 
 
-Route::get('/test', [BlogController::class, 'index']);
+Route::get('/test/abc', [BlogController::class, 'index']);
 
 Route::get('/home', [BlogController::class, 'index']);
 Route::get('/article', [BlogController::class, 'article']);
 Route::get('/about', [BlogController::class, 'about']);
-
+Route::get('/contact', [BlogController::class, 'contact']);
+Route::post('/contact', [BlogController::class, 'contactForm']);

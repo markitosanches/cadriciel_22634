@@ -18,4 +18,12 @@ class BlogController extends Controller
         return view('about');
     }
 
+    public function contact(){
+        return view('contact');
+    }
+
+    public function contactForm(Request $request){
+        //return $request->name;
+        return view('contact-post', ['data' => $request]);
+    }
 }
