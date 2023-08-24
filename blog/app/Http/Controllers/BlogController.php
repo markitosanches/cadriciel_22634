@@ -23,7 +23,9 @@ class BlogController extends Controller
     }
 
     public function contactForm(Request $request){
-        //return $request->name;
-        return view('contact-post', ['data' => $request]);
+        //return $request;
+        //$page = 'page Laravel';
+        //return view('contact-post', ['data' => $request, 'page' =>$page]);
+        return view('contact', ['data' => $request]);
     }
 }
