@@ -26,7 +26,7 @@ class BlogPostController extends Controller
      */
     public function create()
     {
-        //
+        return view('blog.create');
     }
 
     /**
@@ -37,7 +37,15 @@ class BlogPostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //insert into blog_posts(title, body) values (?, ?);
+        //return $newData = select * from blog_post where id = lastInsertedId
+        $newPost = BlogPost::create([
+            'title' => $request->title,
+            'body' => $request->body,
+            'user_id' => 1
+        ]);
+        
+        return $newPost->id;
     }
 
     /**
@@ -53,7 +61,7 @@ class BlogPostController extends Controller
         //$stmt->execute(array(10));
         //$stmt-fetch();
                 
-        return $blogPost;
+        return view('blog.show', ['blogPost' => $blogPost]);
     }
 
     /**
@@ -64,7 +72,7 @@ class BlogPostController extends Controller
      */
     public function edit(BlogPost $blogPost)
     {
-        //
+        return view('blog.edit', ['blogPost' => $blogPost]);
     }
 
     /**

@@ -7,7 +7,7 @@
             <p>Bonne lecture</p>
         </div>
         <div class="col-md-4">
-            <a href="" class='btn btn-primary'>Ajouter</a>
+            <a href="{{ route('blog.create')}}" class='btn btn-primary'>Ajouter</a>
         </div>
     </div>
     <div class="row mt-3">
