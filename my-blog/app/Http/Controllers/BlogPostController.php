@@ -45,7 +45,7 @@ class BlogPostController extends Controller
             'user_id' => 1
         ]);
         
-        return $newPost->id;
+        return redirect(route('blog.index'))->withSuccess('Donnée saisit');
     }
 
     /**
@@ -84,7 +84,15 @@ class BlogPostController extends Controller
      */
     public function update(Request $request, BlogPost $blogPost)
     {
-        //
+        //return $request;
+        //return $blogPost;
+       
+        $blogPost->update([
+            'title' => $request->title,
+            'body' => $request->body
+        ]);
+        
+        return redirect(route('blog.show', $blogPost->id))->withSuccess('Donnée mise à jour');
     }
 
     /**
@@ -95,6 +103,41 @@ class BlogPostController extends Controller
      */
     public function destroy(BlogPost $blogPost)
     {
-        //
+        //return $blogPost;
+        $blogPost->delete();
+
+        return redirect(route('blog.index'))->withSuccess('Donnée effacée');
+    }
+    public function query(){
+
+    //select * from blog_posts;
+       // $query = BlogPost::all();
+       // $query = $query[0];
+
+       //$query = BlogPost::select()->get();
+       //$query = BlogPost::select()->first();
+
+       /*$query = BlogPost::select('title', 'body')
+                ->orderby('title', 'desc')
+                ->get();
+        */
+
+        //SELECT * FROM blog_posts WHERE id = 1;
+
+        /*$query = BlogPost::select()
+                ->where('id','=', 1)
+                ->get();
+         afficher la donnee = $query[0]->id
+        */
+        /*$query = BlogPost::select()
+                ->where('id','=', 1)
+                ->first();
+        afficher la donnee = $query->id
+        */
+        /*
+        $query = BlogPost::find(1);
+        afficher la donnee = $query->id
+        */
+        return $query;
     }
 }

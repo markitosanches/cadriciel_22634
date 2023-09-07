@@ -15,6 +15,12 @@
                 <h1 class="display-3 mt-5">
                     {{ config('app.name')}}
                 </h1>
+                @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{session('success')}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
             @yield('content')
             </div>
         </div>

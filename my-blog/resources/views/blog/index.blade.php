@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Liste des articles')
 @section('content')
+
     <hr>
     <div class="row">
         <div class="col-md-8">

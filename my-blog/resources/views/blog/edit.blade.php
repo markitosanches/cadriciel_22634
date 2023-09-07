@@ -14,6 +14,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <form method="post">
+                    @method('put')
                     @csrf
                         <div class="card-header">
                             Formulaire
