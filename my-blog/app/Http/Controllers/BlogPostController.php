@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+//use Illuminate\Support\Facades\Auth;
 
 class BlogPostController extends Controller
 {
@@ -18,6 +19,14 @@ class BlogPostController extends Controller
         //SELECT * FROM `blog_posts` 
         $posts = BlogPost::all();
         return view('blog.index', ['posts'=>$posts]);
+
+        // if(Auth::check()){
+        //     $posts = BlogPost::all();
+        //     return view('blog.index', ['posts'=>$posts]);
+        // }else{
+        //     return redirect(route('login'));
+        // }
+        
     }
 
     /**

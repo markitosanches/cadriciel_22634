@@ -11,13 +11,23 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-12 pt-4">
-                <h1 class="display-3 mt-5">
+            <div class="col-12 pt-2">
+                <h1 class="display-3 mt-2">
                     {{ config('app.name')}}
                 </h1>
                 @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{session('success')}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+                @if(!$errors->isEmpty())
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{$error}}</li>
+                        @endforeach
+                        </ul>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
