@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 
 Route::get('/blog', [BlogPostController::class, 'index'])->name('blog.index')->middleware('auth');
-Route::get('/blog/{blogPost}', [BlogPostController::class, 'show'])->name('blog.show');
+Route::get('/blog/{blogPost}', [BlogPostController::class, 'show'])->name('blog.show')->middleware('auth');
 Route::get('/blog-create', [BlogPostController::class, 'create'])->name('blog.create')->middleware('auth');
 Route::post('/blog-create', [BlogPostController::class, 'store']);
 Route::get('/blog-edit/{blogPost}', [BlogPostController::class, 'edit'])->name('blog.edit');
@@ -34,3 +34,4 @@ Route::post('/registration', [CustomAuthController::class, 'store']);
 Route::get('/login', [CustomAuthController::class, 'index'])->name('login');
 Route::post('/login', [CustomAuthController::class, 'authentication']);
 Route::get('/logout', [CustomAuthController::class, 'logout'])->name('logout');
+Route::get('/user-list', [CustomAuthController::class, 'userList'])->name('user.list');

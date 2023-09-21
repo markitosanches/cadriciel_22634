@@ -43,7 +43,7 @@ class CustomAuthController extends Controller
             'password' => 'required|min:6|max:20'
         ]);
 
-        // False return redirect()->back()->withErrors('name' => 'field is required', 'password' => ['minimum 6 carac', 'filed is requred'])->withInput();
+        // False return redirect()->back()->withErrors('name' => 'validation.required', 'password' => ['minimum 6 carac', 'filed is requred'])->withInput();
 
         $user = new User;
         $user->fill($request->all());
@@ -51,51 +51,6 @@ class CustomAuthController extends Controller
         $user->save();
 
         return redirect(route('login'))->withSuccess('Utilisateur enregistré');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-        //
     }
 
     public function authentication(Request $request){
@@ -118,11 +73,19 @@ class CustomAuthController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('blog.index'));
+        return redirect()->intended(route('blog.index'));
     }
 
     public function logout(){
         Auth::logout();
         return redirect(route('login'));
+    }
+
+    public function userList(){
+        $users = User::Select('id', 'name')
+                    ->orderBy('name')
+                    ->paginate(5);
+
+        return view('auth.user-list', ['users' => $users]);
     }
 }
