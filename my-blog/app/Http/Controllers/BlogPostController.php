@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BlogPost;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +37,17 @@ class BlogPostController extends Controller
      */
     public function create()
     {
-        return view('blog.create');
+      
+       // $categories = Category::select()->orderby('Category')->get();
+
+    //    $categories = new Category;
+    //    $categories =   $categories->categorySelect();
+       
+        $categories = Category::categorySelect();
+        
+       //return $categories;
+
+        return view('blog.create', ['categories'=>$categories]);
     }
 
     /**
@@ -47,15 +58,17 @@ class BlogPostController extends Controller
      */
     public function store(Request $request)
     {
+        //return $request;
         //insert into blog_posts(title, body) values (?, ?);
         //return $newData = select * from blog_post where id = lastInsertedId
         $newPost = BlogPost::create([
             'title' => $request->title,
             'body' => $request->body,
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+            'category_id' => $request->category_id
         ]);
         
-        return redirect(route('blog.index'))->withSuccess('Donnée saisit');
+        return redirect(route('blog.index'))->withSuccess(trans('lang.text_data_insert'));
     }
 
     /**

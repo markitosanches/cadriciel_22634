@@ -15,6 +15,9 @@
             <p>
                 <strong>Author: </strong> {{ $blogPost->blogHasUser->name }}
             </p>
+            <p>
+            <strong>Category: </strong> {{ $blogPost->blogHasCategory?->category}}
+            </p>
         </div>
     </div>
     <hr>

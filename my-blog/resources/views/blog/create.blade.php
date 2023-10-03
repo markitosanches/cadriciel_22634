@@ -24,6 +24,14 @@
                                     <input type="text" id="title" name="title" class="form-control">
                                 </div>
                                 <div class="control-grup col-12">
+                                    <label for="category">Categories</label>
+                                    <select name="category_id" id="category" class="form-control">
+                                        @foreach($categories as $category)
+                                            <option value="{{$category->id}}">{{$category->category}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="control-grup col-12">
                                     <label for="message">Message</label>
                                     <textarea class="form-control" id="message" name="body"></textarea>
                                 </div>
