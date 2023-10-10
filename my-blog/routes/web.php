@@ -29,6 +29,7 @@ Route::put('/blog-edit/{blogPost}', [BlogPostController::class, 'update']);
 Route::delete('/blog-edit/{blogPost}', [BlogPostController::class, 'destroy'])->name('blog.delete');
 Route::get('/query', [BlogPostController::class, 'query']);
 Route::get('/page', [BlogPostController::class, 'page']);
+Route::get('/blog-pdf/{blogPost}', [BlogPostController::class, 'showPDF'])->name('blog.showPDF');
 
 Route::get('/registration', [CustomAuthController::class, 'create'])->name('user.create');
 Route::post('/registration', [CustomAuthController::class, 'store']);

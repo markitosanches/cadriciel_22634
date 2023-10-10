@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CustomAuthController extends Controller
 {
@@ -49,6 +50,18 @@ class CustomAuthController extends Controller
         $user->fill($request->all());
         $user->password = Hash::make($request->password);
         $user->save();
+        
+        //courriel
+        $to_name = $request->name;
+        $to_email = $request->email;
+        $body="<a href='#'>Cliquez ici</a>";
+
+        Mail::send('email.mail', [
+                'name'=> $to_name, 
+                'body'=>$body   
+            ], function($message) use ($to_name, $to_email){
+                $message->to($to_email, $to_name)->subject('Courriel de test Laravel');
+            });
 
         return redirect(route('login'))->withSuccess('Utilisateur enregistré');
     }
