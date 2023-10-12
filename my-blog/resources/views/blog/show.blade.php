@@ -22,10 +22,13 @@
     </div>
     <hr>
     <div class="row mb-5">
-        <div class="col-6">
+        <div class="col-4">
+            <a href="{{route('blog.showPDF', $blogPost->id)}}" class="btn btn-warning">PDF</a>
+        </div>
+        <div class="col-4">
             <a href="{{route('blog.edit', $blogPost->id)}}" class="btn btn-primary">Mettre a jour</a>
         </div>
-        <div class="col-6">
+        <div class="col-4">
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
             Effacer

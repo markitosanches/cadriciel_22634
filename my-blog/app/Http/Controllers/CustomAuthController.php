@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class CustomAuthController extends Controller
 {
@@ -83,6 +84,8 @@ class CustomAuthController extends Controller
         endif;
 
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
+        $user->temp_password = null;
+        $user->save();
 
         Auth::login($user);
 
@@ -100,5 +103,61 @@ class CustomAuthController extends Controller
                     ->paginate(5);
 
         return view('auth.user-list', ['users' => $users]);
+    }
+
+    public function forgotPassword(){
+        return view('auth.forgot-password');
+    }
+
+    public function tempPassword(Request $request){
+        $request->validate([
+            'email' => 'required|email|exists:users'
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        $tempPassword = str::random(45);
+
+        $user->temp_password = $tempPassword;
+        $user->save();
+
+      
+
+                //courriel
+        $to_name = $user->name;
+        $to_email = $request->email;
+        $body = "<a href='".route('new.password', [$user->id, $tempPassword])."'>Cliquer ici opour changer le mot de passe</a>";
+
+        Mail::send('email.mail', [
+                'name'=> $to_name, 
+                'body'=>$body   
+            ], function($message) use ($to_name, $to_email){
+                $message->to($to_email, $to_name)->subject('Reset password');
+            });
+
+        return redirect(route('login'))->withSuccess('Please check your email');
+
+    }
+
+    public function newPassword(User $user, $tempPassword){
+        if($user->temp_password === $tempPassword ){
+            return view('auth.new-password');
+        } 
+        return redirect(route('forgot-password'))->withErrors('Access denied');
+    }
+
+    public function storeNewPassword(Request $request, User $user, $tempPassword){
+        if($user->temp_password === $tempPassword){
+            $request->validate([
+                'password' => 'min:6|max:20|confirmed'
+            ]);
+
+            $user->password = Hash::make($request->password);
+            $user->temp_password = null;
+            $user->save();
+            return redirect(route('login'))->withSuccess('Success');
+
+        } 
+        return redirect(route('forgot-password'))->withErrors('Access denied');
     }
 }

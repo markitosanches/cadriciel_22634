@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Login')
+@section('title', 'Forgot Password')
 @section('content')
         <hr>
 
@@ -9,7 +9,7 @@
                     <form method="post">
                     @csrf
                         <div class="card-header text-center">
-                            <h3 class="display-5">Connecter</h3>
+                            <h3 class="display-5">Forgot Password</h3>
                         </div>
                         <div class="card-body">   
                             <div class="control-grup col-12">
@@ -21,20 +21,11 @@
                                         </div>       
                                 @endif
                             </div>
-                            <div class="control-grup col-12">
-                                <label for="password">Mot de passe</label>
-                                <input type="password" id="password" name="password" class="form-control">
-                                @if($errors->has('password'))
-                                        <div class="text-danger mt-2">
-                                        {{$errors->first('password')}}
-                                        </div>       
-                                @endif
-                            </div>
+
                         </div>
                         <div class="card-footer">
                             <div class="d-grid mx-auto">
-                                <input type="submit" class="btn btn-success btn-block" value="Connecter">
-                                <p><a href="{{route('forgot-password')}}">Forgot password</a></p>
+                                <input type="submit" class="btn btn-success btn-block" value="Save">
                             </div>
                         </div>
                     </form>
