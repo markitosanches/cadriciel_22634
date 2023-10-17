@@ -21,7 +21,9 @@
                     
                     <ul>
                         @forelse($posts as $post)
-                            <li><a href="{{route('blog.show', $post->id)}}">{{ $post->title }}</a></li>
+                            <li><a href="{{route('blog.show', $post->id)}}">{{ $post->title }}</a>
+                            <a href="{{route('blog.showPDF', $post->id)}}" class="btn btn-warning">PDF</a>
+                            </li>
                         @empty
                             <li class='text-danger'>Aucun article disponible</li>
                         @endforelse
